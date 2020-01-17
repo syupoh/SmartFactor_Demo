@@ -52,5 +52,4 @@ class App:
 
 
 
-
 App(tkinter.Tk(), "Smart Factory Demo")
