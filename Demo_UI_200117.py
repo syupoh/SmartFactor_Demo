@@ -23,16 +23,18 @@ class App:
 
         self.window = window12
         self.window.title(window_title)
-        
-        width = 600
-        height = 600
+        self.screen_w = tkinter.Tk().winfo_screenwidth()
+        self.screen_h = tkinter.Tk().winfo_screenheight()
+
+        width = self.screen_w/2
+        height = self.screen_h/2
         self.window.geometry("{0}x{1}+100+50".format(int(width), int(height)))
 
         # Button that lets the user take a snapshot
         self.btn_snapshot = tkinter.Button(self.window, overrelief="solid",
                                            text="Detect", width=self.butsz, command=self.btn_snapshot)
 
-        self.canvas3 = tkinter.Canvas(self.window3, width=self.vid.width, height=self.vid.height)
+        # self.canvas3 = tkinter.Canvas(self.window, width=self.vid.width, height=self.vid.height)
         
         # After it is called once, the update method will be automatically called every delay mill
         self.delay = 20
@@ -53,3 +55,5 @@ class App:
 
 
 App(tkinter.Tk(), "Smart Factory Demo")
+
+
