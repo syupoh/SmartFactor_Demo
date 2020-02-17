@@ -3,6 +3,7 @@ import cv2
 import PIL.Image, PIL.ImageTk
 import time
 import numpy as np
+import os
 
 def windowopen(name, size):
     window = tkinter.Tk()
@@ -16,6 +17,7 @@ class App:
     def __init__(self, window12, window_title):
         self.capsz = 250
         self.butsz = 200
+        patch_size = 128
 
         # open video source (by default this will try to open the computer webcam)
         # self.video_source = video_source
@@ -23,19 +25,76 @@ class App:
 
         self.window = window12
         self.window.title(window_title)
-        self.screen_w = tkinter.Tk().winfo_screenwidth()
-        self.screen_h = tkinter.Tk().winfo_screenheight()
+        self.screen_w = self.window.winfo_screenwidth()
+        self.screen_h = self.window.winfo_screenheight()
+        
+        self.win_w = int(self.screen_w/4*3)
+        self.win_h = int(self.screen_h/2)
+        self.win_x = int(80)
+        self.win_y = int(30)
+        # self.win_x = int(self.screen_w/10)
+        # self.win_y = int(self.screen_h/11)
 
-        width = self.screen_w/2
-        height = self.screen_h/2
-        self.window.geometry("{0}x{1}+100+50".format(int(width), int(height)))
+        
+#  defect가 몇 개
+#  defect 크기 -> boundbox 크기
+#  defect들간의 거리? 
+
+        main_img_w = int(self.win_w-30)
+        main_img_h = int(self.win_h/2)
+        main_img_x = int((self.win_w - main_img_w)/2)
+        main_img_y = int(10)
+        patch_y = int(self.win_h - (patch_size + 10))  
+        
+        self.window.geometry("{0}x{1}+{2}+{3}".format(self.win_w, self.win_h, self.win_x, self.win_y))
+
+        ##########################################
+
+        main_img = PIL.Image.open("stitched-leather-texture.jpg")
+        detected_img1 = PIL.Image.open("stitched-leather-texture_1.png")
+        detected_img2 = PIL.Image.open("stitched-leather-texture_2.jpg")
+        detected_img3 = PIL.Image.open("stitched-leather-texture_3.jpg")
+        detected_img4 = PIL.Image.open("stitched-leather-texture_4.jpg")
+        detected_img5 = PIL.Image.open("stitched-leather-texture_5.jpg")
+        
+        ##########################################
+
+        main_img = main_img.resize((main_img_w, main_img_h))
+        detected_img1 = detected_img1.resize((patch_size, patch_size))
+        detected_img2 = detected_img2.resize((patch_size, patch_size))
+        detected_img3 = detected_img3.resize((patch_size, patch_size))
+        detected_img4 = detected_img4.resize((patch_size, patch_size))
+        detected_img5 = detected_img5.resize((patch_size, patch_size))
+
+        main_img_tk = PIL.ImageTk.PhotoImage(main_img)
+        detected_img1_tk = PIL.ImageTk.PhotoImage(detected_img1)
+        detected_img2_tk = PIL.ImageTk.PhotoImage(detected_img2)
+        detected_img3_tk = PIL.ImageTk.PhotoImage(detected_img3)
+        detected_img4_tk = PIL.ImageTk.PhotoImage(detected_img4)
+        detected_img5_tk = PIL.ImageTk.PhotoImage(detected_img5)
+        
+        main_lbl = tkinter.Label(self.window, image=main_img_tk)
+        detected_lbl1 = tkinter.Label(self.window, image=detected_img1_tk)
+        detected_lbl2 = tkinter.Label(self.window, image=detected_img2_tk)
+        detected_lbl3 = tkinter.Label(self.window, image=detected_img3_tk)
+        detected_lbl4 = tkinter.Label(self.window, image=detected_img4_tk)
+        detected_lbl5 = tkinter.Label(self.window, image=detected_img5_tk)
+
+        main_lbl.place(x=main_img_x, y=main_img_y, width=main_img_w, height=main_img_h)
+        detected_lbl1.place(x=10, y=patch_y, width=patch_size, height=patch_size)
+        detected_lbl2.place(x=10+(patch_size+10)*1, y=patch_y, width=patch_size, height=patch_size)
+        detected_lbl3.place(x=10+(patch_size+10)*2, y=patch_y, width=patch_size, height=patch_size)
+        detected_lbl4.place(x=10+(patch_size+10)*3, y=patch_y, width=patch_size, height=patch_size)
+        detected_lbl5.place(x=10+(patch_size+10)*4, y=patch_y, width=patch_size, height=patch_size)
+        ##########################################
+        
 
         # Button that lets the user take a snapshot
-        self.btn_snapshot = tkinter.Button(self.window, overrelief="solid",
-                                           text="Detect", width=self.butsz, command=self.btn_snapshot)
+        # self.btn_snapshot = tkinter.Button(self.window, overrelief="solid",
+        #                                    text="Detect", width=int(self.win_w/10), command=self.btn_snapshot)
+        # self.btn_snapshot.place(x=30, y=int(self.win_h/2), width=int(self.win_w/10))
 
-        # self.canvas3 = tkinter.Canvas(self.window, width=self.vid.width, height=self.vid.height)
-        
+
         # After it is called once, the update method will be automatically called every delay mill
         self.delay = 20
         self.update()
@@ -53,7 +112,7 @@ class App:
         self.window.after(self.delay, self.update)
 
 
-
-App(tkinter.Tk(), "Smart Factory Demo")
+if __name__ == "__main__":
+    App(tkinter.Tk(), "Smart Factory Demo")
 
 
