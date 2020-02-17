@@ -1,0 +1,33 @@
+// # 147.46.66.123	#INMC1 # Alpaca
+// # 147.46.66.73	#INMC2 # Bear
+// # 147.46.132.162	#INMC3 # Cat
+// # 147.46.132.165	#INMC4 # Dog
+// # 147.46.112.21	#301-1 # Elephant
+// # 147.46.122.217	#301-2 #Fox
+// # 147.46.242.23	#302-1 #Giraffe
+// # 147.46.241.245	#302-2 # Hippo
+// # 147.46.241.85 #302-3 # Iguana
+
+{
+	"folders": [
+		// {
+		// 	"name": "dataset",
+		// 	"path": "../../../dataset/"
+		// },
+		// {
+		// 	"name": "Examples",
+		// 	"path": "../../Examples"
+		// },
+		{
+			"name": "Demo",
+			"path": "."
+		},
+		
+	],
+	"settings": {
+		"python.pythonPath": "~/anaconda3/envs/sbada/bin/python",
+		"git.ignoreLimitWarning": true,
+		"ignorePatterns":[".vscode/*.py", "**/site-packages/**/*.py"],
+		"maxNumberOfProblems":30
+	}
+}
