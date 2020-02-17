@@ -35,17 +35,16 @@ class App:
         # self.win_x = int(self.screen_w/10)
         # self.win_y = int(self.screen_h/11)
 
-        
-#  defect가 몇 개
-#  defect 크기 -> boundbox 크기
-#  defect들간의 거리? 
 
         main_img_w = int(self.win_w-30)
         main_img_h = int(self.win_h/2)
         main_img_x = int((self.win_w - main_img_w)/2)
         main_img_y = int(10)
         patch_y = int(self.win_h - (patch_size + 10))  
-        
+        n_defect = 3
+        size_defect = "5 2 3 6 2" 
+        dist_defect = "2 3 1 5 6"
+
         self.window.geometry("{0}x{1}+{2}+{3}".format(self.win_w, self.win_h, self.win_x, self.win_y))
 
         ##########################################
@@ -73,6 +72,11 @@ class App:
         detected_img4_tk = PIL.ImageTk.PhotoImage(detected_img4)
         detected_img5_tk = PIL.ImageTk.PhotoImage(detected_img5)
         
+        
+        label1 = tkinter.Label(self.window, text="defect 갯수 {0}".format(n_defect), height=5)
+        label2 = tkinter.Label(self.window, text="defect 크기 {0}".format(size_defect), height=5)
+        label3 = tkinter.Label(self.window, text="defect 간 거리 {0}".format(dist_defect), height=5)
+
         main_lbl = tkinter.Label(self.window, image=main_img_tk)
         detected_lbl1 = tkinter.Label(self.window, image=detected_img1_tk)
         detected_lbl2 = tkinter.Label(self.window, image=detected_img2_tk)
@@ -86,6 +90,10 @@ class App:
         detected_lbl3.place(x=10+(patch_size+10)*2, y=patch_y, width=patch_size, height=patch_size)
         detected_lbl4.place(x=10+(patch_size+10)*3, y=patch_y, width=patch_size, height=patch_size)
         detected_lbl5.place(x=10+(patch_size+10)*4, y=patch_y, width=patch_size, height=patch_size)
+        label1.place(x=10+(patch_size+10)*5+10, y=patch_y, height=13)
+        label2.place(x=10+(patch_size+10)*5+10, y=patch_y+(13+5)*1, height=13)
+        label3.place(x=10+(patch_size+10)*5+10, y=patch_y+(13+5)*2, height=13)
+
         ##########################################
         
 
