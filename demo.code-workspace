@@ -14,10 +14,10 @@
 		// 	"name": "dataset",
 		// 	"path": "../../../dataset/"
 		// },
-		// {
-		// 	"name": "Examples",
-		// 	"path": "../../Examples"
-		// },
+		{
+			"name": "Hojeon_Dist-master",
+			"path": "../Hojeon_Dist-master"
+		},
 		{
 			"name": "Demo",
 			"path": "."
